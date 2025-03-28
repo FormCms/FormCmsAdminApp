@@ -1,0 +1,3 @@
+[submodule "libs/FormCmsAdminSdk"]
+	path = libs/FormCmsAdminSdk
+	url = git@github.com:FormCms/FormCmsAdminSdk.git
