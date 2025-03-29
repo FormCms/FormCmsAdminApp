@@ -1,7 +1,9 @@
-import {SystemMenuLabels} from "../../libs/FormCmsAdminSdk/useMenuItems";
+import {SystemMenuLabels} from "../../libs/FormCmsAdminSdk";
 
 export const cnSystemMenuLabels : SystemMenuLabels = {
-    auditLog: "日志", roles: "角色", schemaBuilder: "数据建模器", tasks: "任务", users: "用户"
+    menu_audit_log:  "日志",
+    menu_roles: "角色",
+    menu_schema_builder: "数据建模器",
+    menu_tasks: "任务",
+    menu_users: "用户"
 }
-
-export const cnAssetMenuLabel:string = "资料"

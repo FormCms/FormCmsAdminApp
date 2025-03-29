@@ -39,4 +39,14 @@ function useGlobalState<T>(key: GlobalStateKeys, initialData: T): [T, (newValue:
     return [data as T, setGlobalState];
 }
 
-export { useGlobalState, GlobalStateKeys };
+function useLayout() :'sidebar'|'topBar'{
+    const [layout] = useGlobalState<'sidebar'|'topBar'>( GlobalStateKeys.Language, 'sidebar');
+    return layout;
+}
+
+function useLanguage() :'cn'|'en'{
+    const [lan] = useGlobalState<'en'|'cn'>( GlobalStateKeys.Language, 'en');
+    return lan;
+}
+
+export { useGlobalState, GlobalStateKeys ,useLanguage, useLayout};

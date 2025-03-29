@@ -1,5 +1,5 @@
 import {Button} from "primereact/button";
-import {useUserDetailPage} from "../../libs/FormCmsAdminSdk/auth/pages/useUserDetailPage";
+import {useUserDetailPage} from "../../libs/FormCmsAdminSdk";
 
 export function UserDetailPage({baseRouter}:{baseRouter:string}) {
     const {formId, userData,handleDelete, UserDetailPageMain} = useUserDetailPage(baseRouter)

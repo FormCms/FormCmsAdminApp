@@ -12,12 +12,14 @@ import {RegisterPage} from "./auth/RegisterPage";
 import {SidebarLayout} from "./sidebarLayout/SideBarLayout";
 import {GlobalStateKeys, useGlobalState} from "./globalState";
 import {TopBarLayout} from "./topbarLayout/TopBarLayout";
-import {setCmsApiBaseUrl} from "../libs/FormCmsAdminSdk/cms/configs";
-import {setAuditLogBaseUrl} from "../libs/FormCmsAdminSdk/auditLog/config";
-import {setAuthApiBaseUrl} from "../libs/FormCmsAdminSdk/auth/configs";
-import {useUserInfo} from "../libs/FormCmsAdminSdk/auth/services/auth";
-import {AuthRouter} from "../libs/FormCmsAdminSdk/auth/AuthRouter";
 import {ProgressSpinner} from "primereact/progressspinner";
+import {
+    AuthRouter,
+    setAuditLogBaseUrl,
+    setAuthApiBaseUrl,
+    setCmsApiBaseUrl,
+    useUserInfo
+} from "../libs/FormCmsAdminSdk";
 
 axios.defaults.withCredentials = true
 setCmsApiBaseUrl(configs.apiURL)

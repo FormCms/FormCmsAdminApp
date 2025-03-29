@@ -1,7 +1,22 @@
-import {CmsComponentConfig, getDefaultCmsComponentConfig} from "../../libs/FormCmsAdminSdk/cms/cmsComponentConfig";
+import {CmsComponentConfig, getDefaultCmsComponentConfig} from "../../libs/FormCmsAdminSdk";
 
-export const  cnCmsConfig : CmsComponentConfig = {
+export const cnCmsConfig: CmsComponentConfig = {
     ...getDefaultCmsComponentConfig(),
+    assetLabels: {
+        path: '路径',
+        url: '链接',
+        name: '名称',
+        title: '标题',
+        size: '大小',
+        type: '类型',
+        metadata: '元数据',
+        createdBy: '创建者',
+        createdAt: '创建时间',
+        updatedAt: '更新时间',
+        linkCount: '引用数量',
+        links:'引用',
+        id: '编号'
+    },
     assetEditor: {
         dialogHeader: "选择资料",
         fileNameLabel: "文件名",
@@ -11,22 +26,7 @@ export const  cnCmsConfig : CmsComponentConfig = {
         saveSuccessMessage: "保存成功"
     },
     assetSelector: {
-        assetLabels: function () {
-            return {
-                path: '路径',
-                url: '链接',
-                name: '名称',
-                title: '标题',
-                size: '大小',
-                type: '类型',
-                metadata: '元数据',
-                createdBy: '创建者',
-                createdAt: '创建时间',
-                updatedAt: '更新时间',
-                linkCount: '引用数量',
-                id: '编号'
-            };
-        },
+
         dialogHeader: "编辑资料",
         galleryLabel: "预览",
         listLabel: "列表",
@@ -35,13 +35,13 @@ export const  cnCmsConfig : CmsComponentConfig = {
     editTable: {
         addButtonLabel: function (p1: string) {
             return `添加 ${p1}`;
-        }, cancelButtonLabel: "取消", dialogHeader: function (p1: string) {
+        }, cancelButtonLabel: "取消", dialogHeader: function (_: string) {
             return "取消";
         }, saveButtonLabel: "保存", submitSuccess: function (p1: string) {
             return `保存 ${p1}`;
         }
     },
-    fileInputLabels: {choose: "选择资料", delete: "删除资料", edit: "编辑资料", upload: "上传资料"},
+    fileInputLabels: {choose: "选择", delete: "删除", edit: "编辑", upload: "上传"},
 
     picklist: {
         cancelButtonLabel: "取消",

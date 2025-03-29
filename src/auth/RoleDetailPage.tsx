@@ -1,5 +1,5 @@
 import {Button} from "primereact/button";
-import {useRoleDetailPage} from "../../libs/FormCmsAdminSdk/auth/pages/useRoleDetailPage";
+import {useRoleDetailPage} from "../../libs/FormCmsAdminSdk/";
 
 export function RoleDetailPage({baseRouter}:{baseRouter:string}) {
     const {isNewRole, roleData, handleDelete, RoleDetailPageMain} = useRoleDetailPage(baseRouter)

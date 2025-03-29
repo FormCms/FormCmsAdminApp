@@ -1,26 +1,32 @@
 import {Menubar} from "primereact/menubar";
 import React from "react";
-import {MenuItem} from "primereact/menuitem";
-
 import {configs} from "../config";
 import {Logo} from "../layout/Logo";
 import {MenuEnd} from "../layout/MenuEnd";
-import {GlobalStateKeys, useGlobalState} from "../globalState";
-import {cnAssetMenuLabel, cnSystemMenuLabels} from "../types/menu";
-import {useAssetMenuItems, useEntityMenuItems, useSystemMenuItems} from "../../libs/FormCmsAdminSdk/useMenuItems";
+import {useLanguage} from "../globalState";
+import {cnSystemMenuLabels} from "../types/menu";
+import {useAssetMenuItems, useEntityMenuItems, useSystemMenuItems} from "../../libs/FormCmsAdminSdk";
+import {useNavigate} from "react-router-dom";
 
 export function TopMenuBar() {
-    const [lan] = useGlobalState<string>( GlobalStateKeys.Language, 'en');
-    const entityMenuItems: MenuItem[] = useEntityMenuItems(configs.entityRouterPrefix);
+    const navigate = useNavigate();
+    const [lan] = useLanguage()
+    const entityMenuItems :any[]= useEntityMenuItems(configs.entityRouterPrefix);
 
-    const assetMenuItems: MenuItem[] = useAssetMenuItems(configs.entityRouterPrefix, lan==='en' ? undefined: cnAssetMenuLabel);
+    const assetMenuItems :any[]= useAssetMenuItems(configs.entityRouterPrefix);
 
-    const systemMenuItems: MenuItem[] = useSystemMenuItems(
+    const systemMenuItems  :any[]= useSystemMenuItems(
         configs.entityRouterPrefix,configs.authRouterPrefix,configs.auditLogRouterPrefix,configs.schemaBuilderRouter,
-        lan === 'en' ? undefined : cnSystemMenuLabels
     );
+    if (lan === 'cn'){
+        systemMenuItems.forEach(x=>{ x.label = cnSystemMenuLabels[x.key as keyof typeof cnSystemMenuLabels] })
+    }
+    [...entityMenuItems, ...assetMenuItems, ...systemMenuItems].forEach(x => {
+        if (x.link) {
+            x.command = () => navigate(x.link);
+        }
+    })
 
-    console.log(assetMenuItems);
     return (
         <Menubar model={[...entityMenuItems, ...assetMenuItems, ...systemMenuItems]} start={<Logo/>} end={<MenuEnd/>}/>
     )

@@ -1,34 +1,33 @@
 import {SelectButton, SelectButtonChangeEvent} from "primereact/selectbutton";
-import {GlobalStateKeys, useGlobalState} from "../globalState";
+import {useLanguage} from "../globalState";
 import {
-    DisplayMode,
-    DisplayModeOption,
-    displayModeOptions,
-    useAssetList
-} from "../../libs/FormCmsAdminSdk/cms/pages/useAssetListPage";
-import {XEntity} from "../../libs/FormCmsAdminSdk/cms/types/xEntity";
+    AssetListPageConfig,
+    useAssetListPage
+} from "../../libs/FormCmsAdminSdk";
+import {XEntity} from "../../libs/FormCmsAdminSdk/";
 
-export function AssetListPage({schema,baseRouter}:{schema:XEntity,baseRouter:string}) {
-    const [lan] = useGlobalState<string>( GlobalStateKeys.Language, 'en');
-    const {displayMode,setDisplayMode,AssetListPageMain} = useAssetList(baseRouter,schema);
-    const cnDisplayModeOptions: DisplayModeOption[] = [
-        {
-            value: DisplayMode.List,
-            label: '列表'
+export function AssetListPage({schema, baseRouter}: { schema: XEntity, baseRouter: string }) {
+    const lan = useLanguage();
+    const cnPageConfig: AssetListPageConfig = {
+        deleteConfirm(label: string | undefined): string {
+            return `你确认删除 ${label} 吗？`;
         },
+        deleteConfirmHeader: "确认",
+        deleteSuccess(_: string | undefined): string {
+            return "删除成功";
+        }, displayModeLabels: {gallery: "缩略图", list: "列表"}
+    }
 
-        {
-            value: DisplayMode.Gallery,
-            label: '缩略图'
-        }
-    ];
+    const {displayMode, displayModeOptions, setDisplayMode, AssetListPageMain} =
+        useAssetListPage(baseRouter, schema, lan === 'en' ? undefined : cnPageConfig);
+
     return <>
         <br/>
         <div className="flex gap-5 justify-between">
             <SelectButton
                 value={displayMode}
                 onChange={(e: SelectButtonChangeEvent) => setDisplayMode(e.value)}
-                options={lan === 'en' ? displayModeOptions:cnDisplayModeOptions}
+                options={displayModeOptions}
             />
         </div>
         <AssetListPageMain/>

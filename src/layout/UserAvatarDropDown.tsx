@@ -1,28 +1,43 @@
 import React, {useRef} from 'react';
 import {Avatar} from 'primereact/avatar';
 import {Menu} from 'primereact/menu';
-import {MenuItem} from "primereact/menuitem";
 import {configs} from "../config";
-import {GlobalStateKeys, useGlobalState} from "../globalState";
-import {useUserInfo} from "../../libs/FormCmsAdminSdk/auth/services/auth";
-import {UserProfileMenuLabels, useUserProfileMenu} from "../../libs/FormCmsAdminSdk/useMenuItems";
+import {useLanguage} from "../globalState";
+import {useUserInfo, useUserProfileMenu} from "../../libs/FormCmsAdminSdk";
+import {useNavigate} from "react-router-dom";
 
 const UserAvatarDropdown = () => {
-    const [lan] = useGlobalState<string>( GlobalStateKeys.Language, 'en');
+    const lan = useLanguage()
     const menu = useRef<any>(null);
-    const {data:userAccessInfo} = useUserInfo();
-    const cnLabels : UserProfileMenuLabels = {
-        changePassword: "修改密码", logout: "登出"
+    const {data: userAccessInfo} = useUserInfo();
+    const menus = useUserProfileMenu(configs.authRouterPrefix);
+    if (lan === 'cn') {
+        menus.forEach((item) => {
+            if (item.key === 'logout') {
+                item.label = "登出"
+            } else if (item.key === 'changePassword') {
+                item.label = "修改密码"
+            }
+        })
     }
-    const userProfileMenu: MenuItem[] = useUserProfileMenu(configs.authRouterPrefix, lan === 'en' ? undefined: cnLabels);
-    function handleToggle(event:any){
+
+    const navigate = useNavigate();
+    const menuItems = menus.map((item) => {
+        return {
+            ...item,
+            command: item.command ? item.command : () => navigate(item.link),
+        };
+    })
+
+    function handleToggle(event: any) {
         menu?.current?.toggle(event);
     }
 
     return (
         <div className="flex align-items-center gap-2">
-            <Avatar onClick={handleToggle} icon="pi pi-user" size="normal" style={{ backgroundColor: '#2196F3', color: '#ffffff' }} shape="circle" />
-            <Menu model={userProfileMenu} popup ref={menu}/>
+            <Avatar onClick={handleToggle} icon="pi pi-user" size="normal"
+                    style={{backgroundColor: '#2196F3', color: '#ffffff'}} shape="circle"/>
+            <Menu model={menuItems} popup ref={menu}/>
             <span onClick={handleToggle} style={{cursor: 'pointer'}}>{userAccessInfo?.email.split('@')[0]}</span>
         </div>
     );

@@ -1,5 +1,4 @@
-import {useAuditLogListPage} from "../../libs/FormCmsAdminSdk/auditLog/pages/useAuditLogListPage";
-import {XEntity} from "../../libs/FormCmsAdminSdk/cms/types/xEntity";
+import {useAuditLogListPage,XEntity} from "../../libs/FormCmsAdminSdk"
 
 export function AuditLogListPage(
     {

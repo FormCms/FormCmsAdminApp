@@ -6,11 +6,11 @@ import {Link} from 'react-router-dom';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-import {GlobalStateKeys, useGlobalState} from "../globalState";
-import {useChangePasswordPage} from "../../libs/FormCmsAdminSdk/auth/pages/useChangePasswordPage";
+import {useLanguage} from "../globalState";
+import {useChangePasswordPage} from "../../libs/FormCmsAdminSdk";
 
 export const ChangePasswordPage: React.FC = () => {
-    const [lan] = useGlobalState<string>( GlobalStateKeys.Language, 'en');
+    const lan = useLanguage()
 
     const {
         errors, success,

@@ -1,5 +1,5 @@
 import {Button} from "primereact/button";
-import {useAuditLogDetailPage} from "../../libs/FormCmsAdminSdk/auditLog/pages/useAuditLogDetailPage";
+import {useAuditLogDetailPage} from "../../libs/FormCmsAdminSdk";
 
 export function AuditLogDetailPage({baseRouter}:{baseRouter:string}) {
     const {auditLogData, refUrl} = useAuditLogDetailPage(baseRouter)

@@ -14,39 +14,37 @@ import {RoleDetailPage} from "./auth/RoleDetailPage";
 import {AuditLogDetailPage} from "./auditLog/AuditLogDetailPage";
 import {AuditLogListPage} from "./auditLog/AuditLogListPage";
 import React from "react";
-import {EntityRouter} from "../libs/FormCmsAdminSdk/cms/EntityRouter";
-import {AccountRouter} from "../libs/FormCmsAdminSdk/auth/AccountRouter";
-import {AuditLogRouter} from "../libs/FormCmsAdminSdk/auditLog/AuditLogRouter";
+import {AccountRouter, AuditLogRouter, EntityRouter} from "../libs/FormCmsAdminSdk";
 
 export function AppRouters() {
     return <Routes>
-            <Route path={`${configs.entityRouterPrefix}/*`} element={
-                <EntityRouter
-                    baseRouter={configs.entityRouterPrefix}
-                    DataListPage={DataListPage}
-                    NewDataItemPage={NewDataItemPage}
-                    DataItemPage={DataItemPage}
-                    TaskListPage={TaskListPage}
-                    AssetListPage={AssetListPage}
-                    AssetEditPage={AssetEditPage}
-                />
-            }/>
-            <Route path={`${configs.authRouterPrefix}/*`} element={
-                <AccountRouter
-                    baseRouter={configs.authRouterPrefix}
-                    UserListPage={UserListPage}
-                    UserDetailPage={UserDetailPage}
-                    ChangePasswordPage={ChangePasswordPage}
-                    RoleListPage={RoleListPage}
-                    RoleDetailPage={RoleDetailPage}
-                />
-            }/>
-            <Route path={`${configs.auditLogRouterPrefix}/*`} element={
-                <AuditLogRouter
-                    baseRouter={configs.auditLogRouterPrefix}
-                    AuditLogDetailPage={AuditLogDetailPage}
-                    AuditLogListPage={AuditLogListPage}
-                />
-            }/>
-        </Routes>
+        <Route path={`${configs.entityRouterPrefix}/*`} element={
+            <EntityRouter
+                baseRouter={configs.entityRouterPrefix}
+                DataListPage={DataListPage}
+                NewDataItemPage={NewDataItemPage}
+                DataItemPage={DataItemPage}
+                TaskListPage={TaskListPage}
+                AssetListPage={AssetListPage}
+                AssetEditPage={AssetEditPage}
+            />
+        }/>
+        <Route path={`${configs.authRouterPrefix}/*`} element={
+            <AccountRouter
+                baseRouter={configs.authRouterPrefix}
+                UserListPage={UserListPage}
+                UserDetailPage={UserDetailPage}
+                ChangePasswordPage={ChangePasswordPage}
+                RoleListPage={RoleListPage}
+                RoleDetailPage={RoleDetailPage}
+            />
+        }/>
+        <Route path={`${configs.auditLogRouterPrefix}/*`} element={
+            <AuditLogRouter
+                baseRouter={configs.auditLogRouterPrefix}
+                AuditLogDetailPage={AuditLogDetailPage}
+                AuditLogListPage={AuditLogListPage}
+            />
+        }/>
+    </Routes>
 }

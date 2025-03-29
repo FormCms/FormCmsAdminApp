@@ -1,10 +1,9 @@
 import {ButtonGroup} from "primereact/buttongroup";
 import {Button} from "primereact/button";
-import {GlobalStateKeys, useGlobalState} from "../globalState";
+import {useLanguage} from "../globalState";
 import {cnCmsConfig} from "../types/cnCmsConfig";
-import {CmsComponentConfig, getDefaultCmsComponentConfig} from "../../libs/FormCmsAdminSdk/cms/cmsComponentConfig";
-import {useDataItemPage} from "../../libs/FormCmsAdminSdk/cms/pages/useDataItemPage";
-import {XEntity} from "../../libs/FormCmsAdminSdk/cms/types/xEntity";
+
+import {XEntity,CmsComponentConfig,getDefaultCmsComponentConfig,useDataItemPage} from "../../libs/FormCmsAdminSdk";
 
 export function DataItemPage(
     {
@@ -12,7 +11,7 @@ export function DataItemPage(
         baseRouter
     }: {schema:XEntity,baseRouter:string}
 ) {
-    const [lan] = useGlobalState<string>( GlobalStateKeys.Language, 'en');
+    const lan = useLanguage();
     const componentConfig:CmsComponentConfig = lan === 'en' ? getDefaultCmsComponentConfig():cnCmsConfig;
 
     const {

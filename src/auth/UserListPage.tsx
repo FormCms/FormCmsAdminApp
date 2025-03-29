@@ -1,5 +1,5 @@
 import {GlobalStateKeys, useGlobalState} from "../globalState";
-import {useUserListPage} from "../../libs/FormCmsAdminSdk/auth/pages/useUserListPage";
+import {useUserListPage} from "../../libs/FormCmsAdminSdk/";
 
 export function UserListPage() {
     const [layout, _] = useGlobalState<string>( GlobalStateKeys.Layout, 'sidebar');

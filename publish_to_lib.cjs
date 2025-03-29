@@ -17,7 +17,7 @@ const env = { ...process.env, ...envVars };
 execSync("tsc && vite build --base /_content/FormCMS/admin/", { stdio: "inherit", env });
 
 // Remove the old admin folder
-const adminPath = path.resolve("../../server/FormCMS/wwwroot/admin");
+const adminPath = path.resolve("../formCms/server/FormCMS/wwwroot/admin");
 fs.rmSync(adminPath, { recursive: true, force: true });
 
 // Copy new build files

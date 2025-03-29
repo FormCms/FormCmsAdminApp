@@ -1,8 +1,7 @@
 import {Button} from "primereact/button";
 import {FileUpload} from "primereact/fileupload";
-import {GlobalStateKeys, useGlobalState} from "../globalState";
-import {useAssetEditPage} from "../../libs/FormCmsAdminSdk/cms/pages/useAssetEditPage";
-import {XEntity} from "../../libs/FormCmsAdminSdk/cms/types/xEntity";
+import {useLanguage} from "../globalState";
+import {useAssetEditPage,XEntity} from "../../libs/FormCmsAdminSdk/";
 
 export function AssetEditPage({schema,baseRouter}:{schema:XEntity,baseRouter:string}) {
     const {
@@ -10,7 +9,7 @@ export function AssetEditPage({schema,baseRouter}:{schema:XEntity,baseRouter:str
         handleDownload, handleUpload, handleDelete,
         FeaturedImage, AssetLinkTable, MetaDataForm
     } = useAssetEditPage(baseRouter,schema);
-    const [lan] = useGlobalState<string>( GlobalStateKeys.Language, 'en');
+    const lan = useLanguage();
     return <>
         <h3>{lan==='en'?'Edit ':'编辑'} {asset.name}</h3>
         <FeaturedImage/>

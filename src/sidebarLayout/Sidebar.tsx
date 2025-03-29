@@ -2,34 +2,47 @@ import {Menu} from "primereact/menu";
 import {MenuItem} from "primereact/menuitem";
 import {configs} from "../config";
 import {Logo} from "../layout/Logo";
-import {GlobalStateKeys, useGlobalState} from "../globalState";
-import {cnAssetMenuLabel, cnSystemMenuLabels} from "../types/menu";
-import {useAssetMenuItems, useEntityMenuItems, useSystemMenuItems} from "../../libs/FormCmsAdminSdk/useMenuItems";
+import {GlobalStateKeys, useGlobalState, useLanguage} from "../globalState";
+import {cnSystemMenuLabels} from "../types/menu";
+import {
+    useAssetMenuItems,
+    useEntityMenuItems,
+    useSystemMenuItems
+} from "../../libs/FormCmsAdminSdk";
+import {useNavigate} from "react-router-dom";
 
 export function Sidebar() {
-    const [lan] = useGlobalState<string>( GlobalStateKeys.Language, 'en');
-    const [_, setActiveMenu] = useGlobalState<MenuItem|null>( GlobalStateKeys.ActiveMenu, null);
-    const entityMenuItems: MenuItem[] = useEntityMenuItems(configs.entityRouterPrefix);
-    const assetMenuItems: MenuItem[] = useAssetMenuItems(configs.entityRouterPrefix, lan==='en' ? undefined: cnAssetMenuLabel);
-    const systemMenuItems: MenuItem[] = useSystemMenuItems(
-        configs.entityRouterPrefix,configs.authRouterPrefix,configs.auditLogRouterPrefix,configs.schemaBuilderRouter,
-        lan === 'en' ? undefined : cnSystemMenuLabels
+    const navigate = useNavigate();
+    const lan = useLanguage();
+    const [_, setActiveMenu] = useGlobalState<{
+        label?: string,
+        icon?: string
+    } | null>(GlobalStateKeys.ActiveMenu, null);
+
+    const entityMenuItems: any[] = useEntityMenuItems(configs.entityRouterPrefix);
+    const assetMenuItems: any[] = useAssetMenuItems(configs.entityRouterPrefix);
+    const systemMenuItems: any[] = useSystemMenuItems(
+        configs.entityRouterPrefix, configs.authRouterPrefix, configs.auditLogRouterPrefix, configs.schemaBuilderRouter
     );
 
-    function appendSetActiveMenu(menuItems: MenuItem[]) {
-        menuItems.forEach(item => {
-            if (item.command) {
-                const cmd = item.command;
-                item.command = (e) =>{
-                    setActiveMenu(item)
-                    cmd(e)
-                }
-            }
+    if (lan !== 'cn') {
+        systemMenuItems.forEach(x => {
+            x.label = cnSystemMenuLabels[x.key as keyof typeof cnSystemMenuLabels];
+        });
+        assetMenuItems.forEach(x => {
+            x.label = '资料';
         })
     }
-    appendSetActiveMenu(entityMenuItems);
-    appendSetActiveMenu(systemMenuItems);
-    appendSetActiveMenu(assetMenuItems);
+
+    [...entityMenuItems, ...assetMenuItems, ...systemMenuItems].forEach(x => {
+        if (x.link) {
+            const item = x;
+            x.command = () => {
+                setActiveMenu(item)
+                navigate(x.link);
+            }
+        }
+    })
 
     let items: MenuItem[] = [
         {
@@ -41,23 +54,27 @@ export function Sidebar() {
                 )
             }
         },
-        {separator:true},
         {
-            label: lan === 'en'?'Entities':"数据",
+            separator: true
+        },
+        {
+            label: lan === 'en' ? 'Entities' : "数据",
             items: entityMenuItems,
         }
     ];
+
     if (assetMenuItems.length > 0) {
         items.push({separator: true})
         items.push({
-            label:lan === 'en'? 'Assets': "资料",
+            label: lan === 'en' ? 'Assets' : "资料",
             items: assetMenuItems,
         })
     }
+
     if (systemMenuItems.length > 0) {
         items.push({separator: true})
         items.push({
-            label: lan === 'en'? 'System': "系统",
+            label: lan === 'en' ? 'System' : "系统",
             items: systemMenuItems,
         })
     }
