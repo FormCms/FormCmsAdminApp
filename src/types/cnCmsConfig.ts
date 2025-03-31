@@ -1,7 +1,8 @@
-import {CmsComponentConfig, getDefaultCmsComponentConfig} from "../../libs/FormCmsAdminSdk";
+import {CmsComponentConfig} from "../../libs/FormCmsAdminSdk";
+import {getDefaultComponentConfig} from "./comoponentConfig";
 
 export const cnCmsConfig: CmsComponentConfig = {
-    ...getDefaultCmsComponentConfig(),
+    ...getDefaultComponentConfig(),
     assetLabels: {
         path: '路径',
         url: '链接',

@@ -12,15 +12,18 @@
   "dependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-router-dom": "^6.17.0",
+
     "axios": "^1.8.4",
+    "qs": "^6.11.2",
+    "react-hook-form": "^7.47.0",
+    "swr": "^2.3.3",
+
     "primeflex": "^4.0.0",
     "primeicons": "^7.0.0",
     "primereact": "^10.9.3",
-    "qs": "^6.11.2",
-    "quill": "^2.0.3",
-    "react-hook-form": "^7.47.0",
-    "react-router-dom": "^6.17.0",
-    "swr": "^2.3.3"
+    "quill": "^2.0.3"
+
   },
   "devDependencies": {
     "@types/qs": "^6.9.9",

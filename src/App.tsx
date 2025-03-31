@@ -7,11 +7,11 @@ import React from "react";
 import {configs} from "./config";
 import {Route, Routes} from "react-router-dom";
 import axios from "axios";
-import {LoginPage} from "./auth/LoginPage";
-import {RegisterPage} from "./auth/RegisterPage";
-import {SidebarLayout} from "./sidebarLayout/SideBarLayout";
+import {LoginPage} from "./pages/auth/LoginPage";
+import {RegisterPage} from "./pages/auth/RegisterPage";
+import {SidebarLayout} from "./layout/sidebar/SideBarLayout";
 import {GlobalStateKeys, useGlobalState} from "./globalState";
-import {TopBarLayout} from "./topbarLayout/TopBarLayout";
+import {TopBarLayout} from "./layout/topbar/TopBarLayout";
 import {ProgressSpinner} from "primereact/progressspinner";
 import {
     AuthRouter,
