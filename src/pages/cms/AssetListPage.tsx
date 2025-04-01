@@ -10,7 +10,7 @@ import {cnCmsConfig} from "../../types/cnCmsConfig";
 
 const cnPageConfig: AssetListPageConfig = {
     deleteConfirm(label: string | undefined): string {
-        return `你确认删除 ${label} 吗？`;
+        return `您确认删除 ${label} 吗？`;
     },
     deleteConfirmHeader: "确认",
     deleteSuccess(_: string | undefined): string {

@@ -11,6 +11,7 @@ export function InputPanel({data, column, control, className, id, childComponent
 }) {
     const defaultValue = data[column.field]
     //!id means this is in create mode, no need to wait for data; otherwise have to wait for data ready*/
+    console.log({id, data})
     return (!id || Object.keys(data).length > 0) && <div className={className}>
         <label id={column.field} htmlFor={column.field}>
             {column.header}

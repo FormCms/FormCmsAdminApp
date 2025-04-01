@@ -29,6 +29,7 @@ import {ConfirmDialog, confirm} from "../components/etc/ConfirmDialog";
 import {CmsComponentConfig} from "../../libs/FormCmsAdminSdk";
 export function getDefaultComponentConfig(): CmsComponentConfig {
     return {
+        addPairLabel:'Add Pair',
         dataComponents: {
             lazyTable: LazyDataTable,
             basicTable: BasicDataTable,
@@ -89,6 +90,14 @@ export function getDefaultComponentConfig(): CmsComponentConfig {
             okButtonLabel: "Ok",
         },
         assetLabels:null,
+        assetLinkLabels:{
+            entityName:'Entity Name',
+            recordId:'Record Id',
+            id:'id',
+            assetId:'Asset Id',
+            createdAt: 'Created At',
+            updatedAt:'Updated At',
+        },
         editTable: {
             submitSuccess: (field: string) => `Saved ${field}`,
             dialogHeader: (header: string) => `Edit ${header}`,

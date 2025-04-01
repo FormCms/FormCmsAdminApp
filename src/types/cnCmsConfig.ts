@@ -3,6 +3,11 @@ import {getDefaultComponentConfig} from "./comoponentConfig";
 
 export const cnCmsConfig: CmsComponentConfig = {
     ...getDefaultComponentConfig(),
+    addPairLabel:'添加',
+    confirmLabels:{
+        accept:'确定',
+        reject:'取消'
+    },
     assetLabels: {
         path: '路径',
         url: '链接',
@@ -18,8 +23,16 @@ export const cnCmsConfig: CmsComponentConfig = {
         links:'引用',
         id: '编号'
     },
+    assetLinkLabels: {
+        entityName:'实体名称',
+        recordId:'记录编号',
+        id:'编号',
+        assetId:'资料编号',
+        createdAt: '创建时间',
+        updatedAt:'更新时间',
+    },
     assetEditor: {
-        dialogHeader: "选择资料",
+        dialogHeader: "编辑资料元数据",
         fileNameLabel: "文件名",
         fileSizeLabel: "大小",
         fileTypeLabel: "类型",
@@ -27,18 +40,21 @@ export const cnCmsConfig: CmsComponentConfig = {
         saveSuccessMessage: "保存成功"
     },
     assetSelector: {
-
-        dialogHeader: "编辑资料",
+        dialogHeader: "选择资料",
         galleryLabel: "预览",
         listLabel: "列表",
         okButtonLabel: "确定"
     },
     editTable: {
+        cancelButtonLabel: "取消",
+        saveButtonLabel: "保存",
         addButtonLabel: function (p1: string) {
             return `添加 ${p1}`;
-        }, cancelButtonLabel: "取消", dialogHeader: function (_: string) {
-            return "取消";
-        }, saveButtonLabel: "保存", submitSuccess: function (p1: string) {
+        },
+        dialogHeader: function (s: string) {
+            return `添加${s}`;
+        },
+        submitSuccess: function (p1: string) {
             return `保存 ${p1}`;
         }
     },

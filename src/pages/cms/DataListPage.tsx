@@ -9,7 +9,7 @@ export function DataListPage({schema, baseRouter}: {schema:XEntity,baseRouter:st
     const lan = useLanguage();
 
     return <>
-        {layout !== "sidebar" ? <h3>{schema.displayName} list</h3>:<br/>}
+        {layout != 'sidebar' ? <h3>{schema.displayName} list</h3>:<br/>}
         <Button onClick={createNewItem}>{lan === 'en' ? 'Create New' : '新建'} {schema.displayName}</Button>
         <DataListPageMain/>
     </>

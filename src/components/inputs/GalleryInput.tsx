@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {FileUpload, FileUploadUploadEvent} from "primereact/fileupload";
 import {InputText} from "primereact/inputtext";
 import {InputPanel} from "./InputPanel";
@@ -24,36 +24,33 @@ const itemTemplate = (item: any) => {
     return <img src={item.itemImageSrc} style={{width: '100%'}} alt={''}/>
 }
 
-
 export function GalleryInput(props: GalleryInputProps) {
     const FileSelectDialog = props.fileSelector;
-    const [showChooseLib,setShowChooseLib] = useState(false)
-
     const MetadataEditor = props.metadataEditor;
-    const [showMetadataEditor,setShowMetadataEdtior] = useState(false)
-    
+
+    const [showChooseLib, setShowChooseLib] = useState(false)
+    const [showMetadataEditor, setShowMetadataEditor] = useState(false)
+
     return <InputPanel  {...props} childComponent={(field: any) => {
         const [activeIndex, setActiveIndex] = useState(0)
-        const paths:string[] = field.value ?? [];
-        const setPaths =(newPaths:string[])=> {
+        const paths: string[] = field.value ?? [];
+        const setPaths = (newPaths: string[]) => {
             setActiveIndex(0);
             field.onChange(newPaths);
         }
         const urls = paths.map((x: any) => ({
             itemImageSrc: props.getFullAssetsURL(x), thumbnailImageSrc: props.getFullAssetsURL(x)
         }));
-        
-        const handleRemoveActive= ()=>
-        {
-            var newPath =paths.filter((_, index) => index !== activeIndex); 
+
+        const handleRemoveActive = () => {
+            const newPath = paths.filter((_, index) => index !== activeIndex);
             setPaths(newPath);
         }
-        
-        const handleUploaded =(e:FileUploadUploadEvent) => {
-            var newPath =[...paths, ...e.xhr.responseText.split(',')];
+
+        const handleUploaded = (e: FileUploadUploadEvent) => {
+            const newPath = [...paths, ...e.xhr.responseText.split(',')];
             setPaths(newPath);
         }
-            
 
         return <>
             <InputText type={'hidden'} id={field.name} value={field.value} className={' w-full'}
@@ -62,18 +59,18 @@ export function GalleryInput(props: GalleryInputProps) {
             <Galleria showIndicators
                       activeIndex={activeIndex}
                       onItemChange={(e) => setActiveIndex(e.index)}
-                      responsiveOptions={responsiveOptions} 
-                      numVisible={5} 
-                      style={{maxWidth: '50%'}}
+                      responsiveOptions={responsiveOptions}
+                      numVisible={5}
+                      style={{maxWidth: '70%'}}
                       item={itemTemplate}
                       showThumbnails={false}
                       value={urls}
             />
-            <div style={{display: "flex", gap: "10px", alignItems: "center"}}>
+            <div className={'grid gap-1'}>
                 <FileUpload withCredentials
                             auto
-                            multiple 
-                            mode={"basic"} 
+                            multiple
+                            mode={"basic"}
                             url={props.uploadUrl}
                             onUpload={handleUploaded}
                             name={'files'}
@@ -81,35 +78,38 @@ export function GalleryInput(props: GalleryInputProps) {
                 />
                 {
                     FileSelectDialog && (
-                    <Button type='button'
-                            icon={'pi pi-database'}
-                            label={props.labels.choose}
-                            onClick={()=>setShowChooseLib(true)}
-                            className="p-button " // Match FileUpload styling
-                    />)
+                        <Button type='button'
+                                icon={'pi pi-database'}
+                                label={props.labels.choose}
+                                onClick={() => setShowChooseLib(true)}
+                                style={{maxWidth: '90px'}}
+                                className="p-button " // Match FileUpload styling
+                        />)
                 }
                 {
-                    MetadataEditor && paths.length > 0 &&(
+                    MetadataEditor && paths.length > 0 && (
                         <Button type='button'
+                                style={{maxWidth: '90px'}}
                                 icon={'pi pi-pencil'}
                                 label={props.labels.edit}
-                                onClick={()=>setShowMetadataEdtior(true)}
+                                onClick={() => setShowMetadataEditor(true)}
                                 className="p-button " // Match FileUpload styling
                         />
                     )
                 }
                 <Button type='button'
                         icon={'pi pi-trash'}
+                        style={{maxWidth: '90px'}}
                         label={props.labels.delete}
                         onClick={handleRemoveActive}
                         className="p-button " // Match FileUpload styling
                 />
             </div>
             {
-                FileSelectDialog && 
-                <FileSelectDialog 
-                    setPaths={setPaths} 
-                    paths={paths} 
+                FileSelectDialog &&
+                <FileSelectDialog
+                    setPaths={setPaths}
+                    paths={paths}
                     show={showChooseLib}
                     setShow={setShowChooseLib}
                 />
@@ -118,8 +118,8 @@ export function GalleryInput(props: GalleryInputProps) {
                 MetadataEditor && (
                     <MetadataEditor
                         show={showMetadataEditor}
-                        setShow={setShowMetadataEdtior}
-                        path ={paths[activeIndex]}
+                        setShow={setShowMetadataEditor}
+                        path={paths[activeIndex]}
                     />
                 )
             }

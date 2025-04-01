@@ -20,6 +20,8 @@ export function LazyDataTable(
         actionTemplate
     }: LazyDataTableProps
 ) {
+    console.log("LazyDataTable", formater);
+    console.log("columns", columns.map(x=>x.format + '  ' +x.field));
     const tableColumns = columns.map(col => {
         switch (col.contentType) {
             case 'image':

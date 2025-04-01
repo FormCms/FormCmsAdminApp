@@ -3,9 +3,25 @@ import {Button} from "primereact/button";
 import {useLanguage} from "../../globalState";
 import {cnCmsConfig} from "../../types/cnCmsConfig";
 
-import {XEntity,CmsComponentConfig,useDataItemPage} from "../../../libs/FormCmsAdminSdk";
+import {XEntity, CmsComponentConfig, useDataItemPage, DataItemPageConfig} from "../../../libs/FormCmsAdminSdk";
 import {getDefaultComponentConfig} from "../../types/comoponentConfig";
+const cnPageConfig: DataItemPageConfig = {
+    cancelButtonText: "",
+    deleteConfirm(s: string): string {
+        return `您确认删除[${s}]吗？`;
+    },
+    deleteConfirmHeader: "确认",
+    deleteSuccess: "删除成功",
+    publishAtHeader: "发布时间",
+    publishDialogHeader: "发布",
+    publishSuccess: "发布成功",
+    saveSuccess: "保存成功",
+    scheduleDialogHeader: "预约",
+    scheduleSuccess: "预约成功",
+    submitButtonText: "提交",
+    unPublishSuccess: "成功取消发布"
 
+}
 export function DataItemPage(
     {
         schema,
@@ -23,7 +39,7 @@ export function DataItemPage(
         scheduleProps:{handleShowSchedule, ScheduleDialog},
         unpublishProps:{onUnpublish, CheckUnpublishStatus},
         DataItemPageMain,
-    } = useDataItemPage(componentConfig,schema, baseRouter,undefined);
+    } = useDataItemPage(componentConfig,schema, baseRouter,lan === 'en'? undefined:cnPageConfig);
     return <>
         <br/>
         <ButtonGroup>
@@ -40,7 +56,7 @@ export function DataItemPage(
             {showUnpublish && <Button type={'button'} label={lan == 'en'? "Unpublish": '取消发布'} icon="pi pi-ban" onClick={onUnpublish}/>}
         </ButtonGroup>
         &nbsp;
-        {previewUrl && <Button type={'button'} label={"Preview"} onClick={() => window.location.href = previewUrl}/>}
+        {previewUrl && <Button type={'button'} label={lan === 'en' ?"Preview":'预览'} onClick={() => window.location.href = previewUrl}/>}
         <br/>
         <br/>
         <CheckDeleteStatus/>

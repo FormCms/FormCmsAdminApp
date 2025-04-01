@@ -12,9 +12,11 @@ export function DictionaryInput(
         control,
         className,
         id,
-    }: DictionaryInputProps) {
+        addPairLabel
+    }: DictionaryInputProps
+) {
     const defaultValue = data[column.field] || {}; // e.g., { author: "John", tags: ["photo"] }
-    console.log("in dictionary input",{data,defaultValue});
+    console.log("in dictionary input", {data, defaultValue});
 
     const {fields, append, remove, replace} = useFieldArray({
         control,
@@ -30,7 +32,7 @@ export function DictionaryInput(
             }));
             replace(initialPairs); // Replace empty fields with data from defaultValue
         }
-    }, [defaultValue ]);
+    }, [defaultValue]);
 
     return (!id || Object.keys(data).length > 0) ? (
         <div className={className}>
@@ -81,13 +83,15 @@ export function DictionaryInput(
                     </li>
                 ))}
             </ul>
-            <Button
-                type="button"
-                label="Add Pair"
-                icon="pi pi-plus"
-                className="p-button-secondary mt-2"
-                onClick={() => append({key: "", value: ""})}
-            />
+            <div>
+                <Button
+                    type="button"
+                    label={addPairLabel}
+                    icon="pi pi-plus"
+                    className="p-button-secondary mt-2"
+                    onClick={() => append({key: "", value: ""})}
+                />
+            </div>
         </div>
     ) : null;
 }
