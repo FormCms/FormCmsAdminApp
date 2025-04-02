@@ -1,34 +1,35 @@
-import {LazyDataTable} from "../components/data/LazyDataTable";
-import {BasicDataTable} from "../components/data/BasicDataTable";
-import {Dialog} from "../components/etc/Dialog";
-import {Image} from "../components/etc/Image";
-import {Button} from "../components/etc/Button";
-import {Icon} from "../components/etc/Icon";
-import {Toast} from "../components/etc/Toast";
-import {Spinner} from "../components/etc/Spinner";
-import {Message} from "../components/etc/Message";
-import {Upload} from "../components/etc/Upload";
-import {TreeInput} from "../components/inputs/TreeInput";
-import {TreeSelectInput} from "../components/inputs/TreeSelectInput";
-import {LookupInput} from "../components/inputs/LookupInput";
-import {GalleryInput} from "../components/inputs/GalleryInput";
-import {MultiSelectInput} from "../components/inputs/MultiSelectInput";
-import {FileInput} from "../components/inputs/FileInput";
-import {DatetimeInput} from "../components/inputs/DatetimeInput";
-import {TextAreaInput} from "../components/inputs/TextAreaInput";
-import {DictionaryInput} from "../components/inputs/DictionaryInput";
-import {TextInput} from "../components/inputs/TextInput";
-import {EditorInput} from "../components/inputs/EditorInput";
-import {DropDownInput} from "../components/inputs/DropDownInput";
-import {NumberInput} from "../components/inputs/NumberInput";
-import {GallerySelector} from "../components/data/GallerySelector";
-import {GalleryView} from "../components/data/GalleryView";
-import {SelectButton} from "../components/etc/SelectButton";
-import {ConfirmDialog, confirm} from "../components/etc/ConfirmDialog";
+import {LazyDataTable} from "./components/data/LazyDataTable";
+import {BasicDataTable} from "./components/data/BasicDataTable";
+import {Dialog} from "./components/etc/Dialog";
+import {Image} from "./components/etc/Image";
+import {Button} from "./components/etc/Button";
+import {Icon} from "./components/etc/Icon";
+import {Toast} from "./components/etc/Toast";
+import {Spinner} from "./components/etc/Spinner";
+import {Message} from "./components/etc/Message";
+import {Upload} from "./components/etc/Upload";
+import {TreeInput} from "./components/inputs/TreeInput";
+import {TreeSelectInput} from "./components/inputs/TreeSelectInput";
+import {LookupInput} from "./components/inputs/LookupInput";
+import {GalleryInput} from "./components/inputs/GalleryInput";
+import {MultiSelectInput} from "./components/inputs/MultiSelectInput";
+import {FileInput} from "./components/inputs/FileInput";
+import {DatetimeInput} from "./components/inputs/DatetimeInput";
+import {TextAreaInput} from "./components/inputs/TextAreaInput";
+import {DictionaryInput} from "./components/inputs/DictionaryInput";
+import {TextInput} from "./components/inputs/TextInput";
+import {EditorInput} from "./components/inputs/EditorInput";
+import {DropDownInput} from "./components/inputs/DropDownInput";
+import {NumberInput} from "./components/inputs/NumberInput";
+import {GallerySelector} from "./components/data/GallerySelector";
+import {GalleryView} from "./components/data/GalleryView";
+import {SelectButton} from "./components/etc/SelectButton";
+import {ConfirmDialog, confirm} from "./components/etc/ConfirmDialog";
+import {ComponentConfig} from "../libs/FormCmsAdminSdk";
 
-import {CmsComponentConfig} from "../../libs/FormCmsAdminSdk";
-export function getDefaultComponentConfig(): CmsComponentConfig {
+export function getDefaultComponentConfig(): ComponentConfig {
     return {
+        entityPermissionLabels : undefined,
         addPairLabel:'Add Pair',
         dataComponents: {
             lazyTable: LazyDataTable,

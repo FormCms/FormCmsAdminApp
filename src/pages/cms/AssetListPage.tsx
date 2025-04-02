@@ -5,8 +5,8 @@ import {
     useAssetListPage
 } from "../../../libs/FormCmsAdminSdk";
 import {XEntity} from "../../../libs/FormCmsAdminSdk";
-import {getDefaultComponentConfig} from "../../types/comoponentConfig";
-import {cnCmsConfig} from "../../types/cnCmsConfig";
+import {getDefaultComponentConfig} from "../../getDefaultComponentConfig";
+import {cnComponentConfig} from "../../types/cnComponentConfig";
 
 const cnPageConfig: AssetListPageConfig = {
     deleteConfirm(label: string | undefined): string {
@@ -22,7 +22,7 @@ export function AssetListPage({schema, baseRouter}: { schema: XEntity, baseRoute
     const lan = useLanguage();
     const {displayMode, displayModeOptions, setDisplayMode, AssetListPageMain} =
         useAssetListPage(
-            lan === 'en' ? getDefaultComponentConfig() : cnCmsConfig,
+            lan === 'en' ? getDefaultComponentConfig() : cnComponentConfig,
             baseRouter,
             schema,
             lan === 'en' ? undefined : cnPageConfig

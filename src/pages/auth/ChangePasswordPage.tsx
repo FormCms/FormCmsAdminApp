@@ -9,8 +9,30 @@ import 'primeicons/primeicons.css';
 import {useLanguage} from "../../globalState";
 import {useChangePasswordPage} from "../../../libs/FormCmsAdminSdk";
 
+const languageConfig = {
+    en: {
+        changePassword: "Change Password",
+        password: "Password",
+        newPassword: "New Password",
+        confirmNewPassword: "Confirm New Password",
+        submit: "Submit",
+        changePasswordSucceed: "Change Password succeed",
+        goToHomePage: "Click here to go to home page",
+    },
+    cn: {
+        changePassword: "更改密码",
+        password: "密码",
+        newPassword: "新密码",
+        confirmNewPassword: "确认新密码",
+        submit: "提交",
+        changePasswordSucceed: "保存密码成功",
+        goToHomePage: "返回首页"
+    }
+};
+
 export const ChangePasswordPage: React.FC = () => {
-    const lan = useLanguage()
+    const lan = useLanguage();
+    const langTexts = languageConfig[lan === 'en' ? 'en' : 'cn'];
 
     const {
         errors, success,
@@ -18,7 +40,7 @@ export const ChangePasswordPage: React.FC = () => {
         password, setPassword,
         confirmPassword, setConfirmPassword,
         handleChangePassword
-    } = useChangePasswordPage()
+    } = useChangePasswordPage();
 
     const containerStyle: React.CSSProperties = {
         display: 'flex',
@@ -34,20 +56,20 @@ export const ChangePasswordPage: React.FC = () => {
 
     return (
         <div style={containerStyle}>
-            <Card title={lan === 'en' ?'Change Password': '更改密码'} className="p-shadow-5" style={cardStyle}>
+            <Card title={langTexts.changePassword} className="p-shadow-5" style={cardStyle}>
                 <div className="p-fluid">
                     {errors.map(error => (
                         <div className="p-field" key={error}><span className="p-error">{error}</span></div>))}
                     {success ? (
                         <div className="p-field">
                             <span className="p-message ">
-                                Changing password succeeded. <Link to="/">Click here to go to Home Page</Link>
+                                {langTexts.changePasswordSucceed} <Link to="/">{langTexts.goToHomePage}</Link>
                             </span>
                         </div>
                     ) : (
                         <>
                             <div className="p-field">
-                                <label htmlFor="oldPassword">{lan === 'en' ?'Password': '密码'}</label>
+                                <label htmlFor="oldPassword">{langTexts.password}</label>
                                 <Password
                                     id="username"
                                     value={oldPassword} toggleMask
@@ -55,7 +77,7 @@ export const ChangePasswordPage: React.FC = () => {
                                 />
                             </div>
                             <div className="p-field">
-                                <label htmlFor="password">{lan === 'en' ?'New Password':'新密码'}</label>
+                                <label htmlFor="password">{langTexts.newPassword}</label>
                                 <Password
                                     id="password"
                                     value={password}
@@ -64,7 +86,7 @@ export const ChangePasswordPage: React.FC = () => {
                                 />
                             </div>
                             <div className="p-field">
-                                <label htmlFor="confirmPassword">{lan === 'en' ?'Confirm New Password': '确认新密码'}</label>
+                                <label htmlFor="confirmPassword">{langTexts.confirmNewPassword}</label>
                                 <Password
                                     id="confirmPassword"
                                     value={confirmPassword} toggleMask
@@ -73,7 +95,7 @@ export const ChangePasswordPage: React.FC = () => {
                                 />
                             </div>
                             <Button
-                                label={lan === 'en' ?'Submit': '提交'}
+                                label={langTexts.submit}
                                 icon="pi pi-check"
                                 onClick={handleChangePassword}
                                 className="p-mt-2"

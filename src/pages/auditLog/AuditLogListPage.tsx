@@ -1,6 +1,20 @@
-import {useAuditLogListPage,XEntity} from "../../../libs/FormCmsAdminSdk"
-import {getDefaultComponentConfig} from "../../types/comoponentConfig";
-
+import {AuditLogListPageConfig, useAuditLogListPage, XEntity} from "../../../libs/FormCmsAdminSdk"
+import {getDefaultComponentConfig} from "../../getDefaultComponentConfig";
+import {useLanguage} from "../../globalState";
+import {cnComponentConfig} from "../../types/cnComponentConfig";
+const cnPageConfig: AuditLogListPageConfig = {
+    auditLogLabels: {
+        id:'编号',
+        userName:'用户名',
+        action:'操作类型',
+        createdAt:'创建时间',
+        entityName:'实体名',
+        payload :'内容',
+        recordLabel:'记录标题',
+        userId:'用户' ,
+        recordId:'记录编号'
+    }
+}
 export function AuditLogListPage(
     {
         baseRouter, schema
@@ -10,7 +24,13 @@ export function AuditLogListPage(
         schema: XEntity
     }
 ) {
-    const {AuditLogListPageMain} = useAuditLogListPage(getDefaultComponentConfig(),baseRouter, schema);
+    const lan = useLanguage();
+    const {AuditLogListPageMain} = useAuditLogListPage(
+        lan == 'en' ?getDefaultComponentConfig(): cnComponentConfig,
+        baseRouter,
+        schema,
+        lan == 'en' ? undefined: cnPageConfig
+    );
     return <>
         <AuditLogListPageMain/>
     </>

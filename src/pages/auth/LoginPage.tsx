@@ -4,10 +4,27 @@ import {Password} from "primereact/password";
 import {Button} from "primereact/button";
 import {Link} from "react-router-dom";
 import React from "react";
-
 import {useLoginPage} from "../../../libs/FormCmsAdminSdk";
 import {LanguageSelectButton} from "../../layout/LanguageSelectButton";
 import {useLanguage} from "../../globalState";
+
+const languageConfig = {
+    en: {
+        login: "Login",
+        email: "Email",
+        password: "Password",
+        registerPrompt: "Don't have an account? Register",
+        demoCredentials: "demo user/password: "
+    },
+    cn: {
+        login: "登录",
+        email: "电子邮件",
+        password: "密码",
+        registerPrompt: "没有账户？注册",
+        demoCredentials: "演示用户名密码: "
+    }
+};
+
 const containerStyle: React.CSSProperties = {
     display: 'flex',
     justifyContent: 'center',
@@ -15,13 +32,15 @@ const containerStyle: React.CSSProperties = {
     height: '100vh',
     backgroundColor: '#f5f5f5',
 };
+
 export function LoginPage({baseRouter}:{baseRouter:string}) {
-    const lan = useLanguage()
-    const {error, email,setEmail,password,setPassword, handleLogin,registerLink} = useLoginPage(baseRouter)
+    const lan = useLanguage();
+    const langTexts = languageConfig[lan === 'en' ? 'en' : 'cn'];
+    const {error, email, setEmail, password, setPassword, handleLogin, registerLink} = useLoginPage(baseRouter);
 
     return (
         <div style={containerStyle}>
-            <Card title={lan === 'en'?"Login":'登录'} className="p-shadow-5" style={{ width: '300px' }}>
+            <Card title={langTexts.login} className="p-shadow-5" style={{ width: '300px' }}>
                 <div className="p-fluid">
                     {error && (
                         <div className="p-field">
@@ -29,16 +48,16 @@ export function LoginPage({baseRouter}:{baseRouter:string}) {
                         </div>
                     )}
                     <div className="p-field">
-                        <label htmlFor="mail">{lan === 'en' ? 'Email' : '电子邮件'}</label>
+                        <label htmlFor="mail">{langTexts.email}</label>
                         <InputText
                             id="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
-                    <div className="p-field">&nbsp;</div>
+                    <div className="p-field"> </div>
                     <div className="p-field">
-                        <label htmlFor="password">{lan === 'en' ? 'Password' : '密码'}</label>
+                        <label htmlFor="password">{langTexts.password}</label>
                         <Password
                             id="password"
                             value={password}
@@ -47,28 +66,25 @@ export function LoginPage({baseRouter}:{baseRouter:string}) {
                             toggleMask
                         />
                     </div>
-                    <div className="p-field">&nbsp;</div>
+                    <div className="p-field"> </div>
                     <Button
-                        label={lan === 'en' ? 'Login' : '登录'}
+                        label={langTexts.login}
                         icon="pi pi-check"
                         onClick={handleLogin}
                         className="p-mt-2"
                     />
-                    <div className="p-field">&nbsp;</div>
+                    <div className="p-field"> </div>
                     <div className="p-mt-3">
-                        <Link
-                            to={registerLink}>{lan === 'en' ? "Don't have an account? Register" : '没有账户？注册'}</Link>
+                        <Link to={registerLink}>{langTexts.registerPrompt}</Link>
                         <br/>
                         <br/>
                         <LanguageSelectButton/>
                     </div>
                     <br/>
                     <div className="p-mt-3">
-                        {lan === 'en' ? 'demo user/password: ' : ' 演示用户名密码: '} admin@cms.com/Admin1!
+                        {langTexts.demoCredentials} admin@cms.com/Admin1!
                     </div>
                 </div>
-
-
             </Card>
         </div>
     );

@@ -1,21 +1,55 @@
-import {Button} from "primereact/button";
-import {useLanguage} from "../../globalState";
-import {userNewDataItemPage, XEntity} from "../../../libs/FormCmsAdminSdk";
-import {getDefaultComponentConfig} from "../../types/comoponentConfig";
+import { Button } from "primereact/button";
+import { useLanguage } from "../../globalState";
+import { NewDataItemPageConfig, userNewDataItemPage, XEntity } from "../../../libs/FormCmsAdminSdk";
+import { getDefaultComponentConfig } from "../../getDefaultComponentConfig";
+import { cnComponentConfig } from "../../types/cnComponentConfig";
 
-export function NewDataItemPage({schema,baseRouter}: {schema:XEntity,baseRouter:string}) {
-    const {handleGoBack, formId,NewDataItemPageMain} = userNewDataItemPage(getDefaultComponentConfig(),schema, baseRouter);
+// Centralized language configuration
+const languageConfig = {
+    en: {
+        save: "Save",
+        back: "Back"
+    },
+    cn: {
+        save: "保存",
+        back: "返回"
+    }
+};
+
+// Chinese-specific page configuration
+const cnPageConfig: NewDataItemPageConfig = {
+    saveSuccess: (label: string | undefined) => `保存 ${label} 成功`
+};
+
+export function NewDataItemPage({ schema, baseRouter }: { schema: XEntity; baseRouter: string }) {
     const lan = useLanguage();
+    const langTexts = languageConfig[lan === 'en' ? 'en' : 'cn'];
+
+    const { handleGoBack, formId, NewDataItemPageMain } = userNewDataItemPage(
+        lan === 'en' ? getDefaultComponentConfig() : cnComponentConfig,
+        schema,
+        baseRouter,
+        lan === 'en' ? undefined : cnPageConfig
+    );
+
     return (
         <>
-            <br/>
-            <Button label={lan === 'en' ? 'Save ' : '保存 ' + schema.displayName} type="submit" form={formId}
-                    icon="pi pi-check"/>
+            <br />
+            <Button
+                label={`${langTexts.save} ${schema.displayName}`}
+                type="submit"
+                form={formId}
+                icon="pi pi-check"
+            />
             {' '}
-            <Button type={'button'} label={lan === 'en' ? "Back" : '返回'} onClick={handleGoBack}/>
-            <br/>
-            <br/>
-            <NewDataItemPageMain/>
+            <Button
+                type="button"
+                label={langTexts.back}
+                onClick={handleGoBack}
+            />
+            <br />
+            <br />
+            <NewDataItemPageMain />
         </>
-    )
+    );
 }

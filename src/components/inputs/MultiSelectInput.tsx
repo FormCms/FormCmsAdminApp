@@ -14,6 +14,6 @@ export function MultiSelectInput( props:MultiSelectInputProps) {
                 return field.onChange(e.value)
             }}
             options={options}
-            placeholder={"Select " + column.header} className="w-full"/>
+            placeholder={column.header} className="w-full"/>
     }}/>
 }

@@ -1,8 +1,15 @@
-import {CmsComponentConfig} from "../../libs/FormCmsAdminSdk";
-import {getDefaultComponentConfig} from "./comoponentConfig";
+import {ComponentConfig} from "../../libs/FormCmsAdminSdk";
+import {getDefaultComponentConfig} from "../getDefaultComponentConfig";
 
-export const cnCmsConfig: CmsComponentConfig = {
+export const cnComponentConfig: ComponentConfig = {
     ...getDefaultComponentConfig(),
+    entityPermissionLabels:{
+        readonlyEntities:'只读实体',
+        restrictedReadonlyEntities:'受限只读实体',
+
+        readWriteEntities:'读写实体',
+        restrictedReadWriteEntities:'受限读写实体'
+    },
     addPairLabel:'添加',
     confirmLabels:{
         accept:'确定',
