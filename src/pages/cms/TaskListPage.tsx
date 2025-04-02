@@ -1,5 +1,5 @@
 import { Button } from "primereact/button";
-import { useLanguage, useLayout } from "../../globalState";
+import {GlobalStateKeys, useGlobalState, useLanguage, useLayout} from "../../globalState";
 import { TaskListPageConfig, useTaskListPage, XEntity } from "../../../libs/FormCmsAdminSdk";
 import { getDefaultComponentConfig } from "../../getDefaultComponentConfig";
 
@@ -41,8 +41,6 @@ const cnPageConfig: TaskListPageConfig = {
 export function TaskListPage({ schema }: { schema: XEntity; baseRouter: string }) {
     const layout = useLayout();
     const lan = useLanguage();
-    const langTexts = languageConfig[lan === 'en' ? 'en' : 'cn'];
-
     const {
         handleAddExportTask,
         handleAddImportTask,
@@ -54,6 +52,10 @@ export function TaskListPage({ schema }: { schema: XEntity; baseRouter: string }
         schema,
         lan === 'en' ? undefined : cnPageConfig
     );
+
+    const langTexts = languageConfig[lan === 'en' ? 'en' : 'cn'];
+    const [_, setHeader] = useGlobalState<string>( GlobalStateKeys.Header, '');
+    setHeader(langTexts.taskList);
 
     return (
         <>

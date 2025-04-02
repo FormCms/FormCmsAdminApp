@@ -20,8 +20,6 @@ export function LazyDataTable(
         actionTemplate
     }: LazyDataTableProps
 ) {
-    console.log("LazyDataTable", formater);
-    console.log("columns", columns.map(x=>x.format + '  ' +x.field));
     const tableColumns = columns.map(col => {
         switch (col.contentType) {
             case 'image':
@@ -48,11 +46,9 @@ export function LazyDataTable(
             first={state?.first}
             filters={state?.filters}
             multiSortMeta={state?.multiSortMeta}
-            sortField={state?.sortField}
-            sortOrder={state?.sortOrder}
-            onSort={onSort}
-            onFilter={onFilter}
-            onPage={onPage}
+            onSort={e => onSort(e as any)}
+            onFilter={e => onFilter(e as any)}
+            onPage={e => onPage(e as any)}
             selection={selectedItems}
             onSelectionChange={setSelectedItems ? (e) => setSelectedItems(e.value) : undefined}
         >

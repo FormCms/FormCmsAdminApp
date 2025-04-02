@@ -50,8 +50,11 @@ export function TreeInput(
 ) {
 
     const [selectionKeys, setSelectionKeys] = useState<any>();
-    const [expandedKeys, setExpandedKeys] = useState<{ [key: string]: boolean }>(getExpendedKeys(nodes));
+    const [expandedKeys, setExpandedKeys] = useState<{ [key: string]: boolean }>();
 
+    useEffect(() => {
+        setExpandedKeys(getExpendedKeys(nodes));
+    }, []);
     useEffect(() => {
         const keys = getSelectionKeys(nodes ?? [], selectedNodeIds ?? []);
         setSelectionKeys(keys);
@@ -86,7 +89,7 @@ export function TreeInput(
                  expandedKeys={expandedKeys}
                  selectionMode="checkbox"
                  onToggle={(e) => setExpandedKeys(e.value)}
-                 className="w-full md:w-30rem"
+                 className="w-full "
                  onSelectionChange={saveSelectedIds}
     />;
 }

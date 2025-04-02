@@ -12,7 +12,6 @@ import {RegisterPage} from "./pages/auth/RegisterPage";
 import {SidebarLayout} from "./layout/sidebar/SideBarLayout";
 import {GlobalStateKeys, useGlobalState} from "./globalState";
 import {TopBarLayout} from "./layout/topbar/TopBarLayout";
-import {ProgressSpinner} from "primereact/progressspinner";
 import {
     AuthRouter,
     setAuditLogBaseUrl,
@@ -27,7 +26,7 @@ setAuditLogBaseUrl(configs.apiURL)
 setAuthApiBaseUrl(configs.apiURL)
 
 function App() {
-    const {data, error, isLoading} = useUserInfo();
+    const {data} = useUserInfo();
     const [layout, _] = useGlobalState<string>(GlobalStateKeys.Layout, 'sidebar');
     const AuthRouterComponent = () => (
         <AuthRouter
@@ -36,18 +35,13 @@ function App() {
             RegisterPage={RegisterPage}
         />
     );
-    return (
-        <>
-            {isLoading && <ProgressSpinner/>}
-            {data && (layout === 'sidebar' ? <SidebarLayout/> : <TopBarLayout/>)}
-            {
-                error && <Routes>
-                    <Route path={`${configs.authRouterPrefix}/*`} element={<AuthRouterComponent/>}/>
-                    <Route path="*" element={<AuthRouterComponent/>}/>
-                </Routes>
-            }
-        </>
-    );
+
+    return data
+        ? (layout === 'sidebar' ? <SidebarLayout/> : <TopBarLayout/>)
+        : <Routes>
+            <Route path={`${configs.authRouterPrefix}/*`} element={<AuthRouterComponent/>}/>
+            <Route path="*" element={<AuthRouterComponent/>}/>
+        </Routes>
 }
 
 export default App;

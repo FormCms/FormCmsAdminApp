@@ -1,6 +1,6 @@
 import { Button } from "primereact/button";
 import { FileUpload } from "primereact/fileupload";
-import { useLanguage } from "../../globalState";
+import {GlobalStateKeys, useGlobalState, useLanguage} from "../../globalState";
 import { AssetEditPageConfig, useAssetEditPage, XEntity } from "../../../libs/FormCmsAdminSdk";
 import { getDefaultComponentConfig } from "../../getDefaultComponentConfig";
 import { cnComponentConfig } from "../../types/cnComponentConfig";
@@ -58,10 +58,13 @@ export function AssetEditPage({ schema, baseRouter }: { schema: XEntity; baseRou
     );
 
     const langTexts = languageConfig[lan === 'en' ? 'en' : 'cn'];
+    const header = langTexts.edit + " "+ asset.name;
+    const [_, setHeader] = useGlobalState<string>( GlobalStateKeys.Header, '');
+    setHeader(header);
 
     return (
         <>
-            <h3>{langTexts.edit} {asset.name}</h3>
+            <h3>{header}</h3>
             <FeaturedImage />
             <br />
             {asset && (

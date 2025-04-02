@@ -5,6 +5,7 @@ import {InputPanel} from "./InputPanel";
 import {Button} from "primereact/button";
 import {FileInputProps} from "../../../libs/FormCmsAdminSdk";
 import {Image} from "primereact/image";
+import {Message} from "primereact/message";
 
 
 export function FileInput(props: FileInputProps) {
@@ -12,11 +13,13 @@ export function FileInput(props: FileInputProps) {
     const MetadataEditDialog = props.metadataEditor;
     const [showChooseLib, setShowChooseLib] = useState(false)
     const [showEditMetadata, setShowEditMetadata] = useState(false)
+    const [err, setErr] = useState("")
 
     return <InputPanel  {...props} childComponent={(field: any) => {
         const {uploadUrl} = props
 
         return <>
+            {err &&<><br/><Message severity="error" text={err} /><br/><br/></>}
             <InputText
                 id={field.name}
                 value={field.value}
@@ -40,7 +43,12 @@ export function FileInput(props: FileInputProps) {
                     auto
                     url={uploadUrl}
                     onUpload={(e) => {
+                        setErr('')
                         field.onChange(e.xhr.responseText);
+                    }}
+                    onError={e =>{
+                        const msg = JSON.parse(e.xhr.responseText);
+                        setErr(msg.title);
                     }}
                     chooseLabel={props.labels.upload}
                     name={'files'}

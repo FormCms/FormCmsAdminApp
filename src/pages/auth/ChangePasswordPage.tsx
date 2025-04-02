@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-import {useLanguage} from "../../globalState";
+import {GlobalStateKeys, useGlobalState, useLanguage} from "../../globalState";
 import {useChangePasswordPage} from "../../../libs/FormCmsAdminSdk";
 
 const languageConfig = {
@@ -32,8 +32,6 @@ const languageConfig = {
 
 export const ChangePasswordPage: React.FC = () => {
     const lan = useLanguage();
-    const langTexts = languageConfig[lan === 'en' ? 'en' : 'cn'];
-
     const {
         errors, success,
         oldPassword, setOldPassword,
@@ -41,6 +39,10 @@ export const ChangePasswordPage: React.FC = () => {
         confirmPassword, setConfirmPassword,
         handleChangePassword
     } = useChangePasswordPage();
+
+    const langTexts = languageConfig[lan === 'en' ? 'en' : 'cn'];
+    const [_, setHeader] = useGlobalState<string>( GlobalStateKeys.Header, '');
+    setHeader(langTexts.changePassword);
 
     const containerStyle: React.CSSProperties = {
         display: 'flex',

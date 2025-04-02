@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 
 enum GlobalStateKeys {
-    ActiveMenu = 'activeMenu',
+    Header = 'header',
     Layout = 'layout',
     Language = 'language',
 }

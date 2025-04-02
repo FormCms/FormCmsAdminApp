@@ -5,6 +5,7 @@ import {InputPanel} from "./InputPanel";
 import {Galleria} from "primereact/galleria";
 import {Button} from "primereact/button";
 import {GalleryInputProps} from "../../../libs/FormCmsAdminSdk";
+import {Message} from "primereact/message";
 
 const responsiveOptions = [
     {
@@ -30,6 +31,7 @@ export function GalleryInput(props: GalleryInputProps) {
 
     const [showChooseLib, setShowChooseLib] = useState(false)
     const [showMetadataEditor, setShowMetadataEditor] = useState(false)
+    const [err, setErr] = useState("")
 
     return <InputPanel  {...props} childComponent={(field: any) => {
         const [activeIndex, setActiveIndex] = useState(0)
@@ -48,11 +50,13 @@ export function GalleryInput(props: GalleryInputProps) {
         }
 
         const handleUploaded = (e: FileUploadUploadEvent) => {
+            setErr('')
             const newPath = [...paths, ...e.xhr.responseText.split(',')];
             setPaths(newPath);
         }
 
         return <>
+            {err &&<><br/><Message severity="error" text={err} /><br/><br/></>}
             <InputText type={'hidden'} id={field.name} value={field.value} className={' w-full'}
                        onChange={(e) => field.onChange(e.target.value)}/>
 
@@ -66,6 +70,7 @@ export function GalleryInput(props: GalleryInputProps) {
                       showThumbnails={false}
                       value={urls}
             />
+
             <div className={'grid gap-1'}>
                 <FileUpload withCredentials
                             auto
@@ -73,6 +78,12 @@ export function GalleryInput(props: GalleryInputProps) {
                             mode={"basic"}
                             url={props.uploadUrl}
                             onUpload={handleUploaded}
+                            onError={
+                                (e)=>{
+                                    const msg = JSON.parse(e.xhr.responseText);
+                                    setErr(msg.title);
+                                }
+                            }
                             name={'files'}
                             chooseLabel={props.labels.upload}
                 />

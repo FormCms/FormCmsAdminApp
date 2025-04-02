@@ -1,6 +1,6 @@
 import { ButtonGroup } from "primereact/buttongroup";
 import { Button } from "primereact/button";
-import { useLanguage } from "../../globalState";
+import {GlobalStateKeys, useGlobalState, useLanguage} from "../../globalState";
 import { cnComponentConfig } from "../../types/cnComponentConfig";
 import { XEntity, useDataItemPage, DataItemPageConfig, ComponentConfig } from "../../../libs/FormCmsAdminSdk";
 import { getDefaultComponentConfig } from "../../getDefaultComponentConfig";
@@ -60,6 +60,8 @@ export function DataItemPage({ schema, baseRouter }: { schema: XEntity; baseRout
         DataItemPageMain,
     } = useDataItemPage(componentConfig, schema, baseRouter, lan === 'en' ? undefined : cnPageConfig);
 
+    const [_, setHeader] = useGlobalState<string>( GlobalStateKeys.Header, '');
+    setHeader(schema.displayName);
     return (
         <>
             <br />

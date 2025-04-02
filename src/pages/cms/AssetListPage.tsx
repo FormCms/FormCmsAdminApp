@@ -1,5 +1,5 @@
 import {SelectButton, SelectButtonChangeEvent} from "primereact/selectbutton";
-import {useLanguage} from "../../globalState";
+import {GlobalStateKeys, useGlobalState, useLanguage} from "../../globalState";
 import {
     AssetListPageConfig,
     useAssetListPage
@@ -18,8 +18,18 @@ const cnPageConfig: AssetListPageConfig = {
     }, displayModeLabels: {gallery: "缩略图", list: "列表"}
 }
 
+const languageConfig = {
+    en: {
+        header: 'Asset List',
+    },
+    cn: {
+        header: '资料列表',
+    }
+}
+
 export function AssetListPage({schema, baseRouter}: { schema: XEntity, baseRouter: string }) {
     const lan = useLanguage();
+
     const {displayMode, displayModeOptions, setDisplayMode, AssetListPageMain} =
         useAssetListPage(
             lan === 'en' ? getDefaultComponentConfig() : cnComponentConfig,
@@ -27,6 +37,9 @@ export function AssetListPage({schema, baseRouter}: { schema: XEntity, baseRoute
             schema,
             lan === 'en' ? undefined : cnPageConfig
         );
+
+    const [_, setHeader] = useGlobalState<string>( GlobalStateKeys.Header, '');
+    setHeader(languageConfig[lan].header);
 
     return <>
         <br/>

@@ -2,7 +2,7 @@ import {Menu} from "primereact/menu";
 import {MenuItem} from "primereact/menuitem";
 import {configs} from "../../config";
 import {Logo} from "../Logo";
-import {GlobalStateKeys, useGlobalState, useLanguage} from "../../globalState";
+import {useLanguage} from "../../globalState";
 import {cnSystemMenuLabels} from "../../types/menu";
 import {
     useAssetMenuItems,
@@ -14,10 +14,6 @@ import {useNavigate} from "react-router-dom";
 export function Sidebar() {
     const navigate = useNavigate();
     const lan = useLanguage();
-    const [_, setActiveMenu] = useGlobalState<{
-        label?: string,
-        icon?: string
-    } | null>(GlobalStateKeys.ActiveMenu, null);
 
     const entityMenuItems: any[] = useEntityMenuItems(configs.entityRouterPrefix);
     const assetMenuItems: any[] = useAssetMenuItems(configs.entityRouterPrefix);
@@ -36,9 +32,7 @@ export function Sidebar() {
 
     [...entityMenuItems, ...assetMenuItems, ...systemMenuItems].forEach(x => {
         if (x.link) {
-            const item = x;
             x.command = () => {
-                setActiveMenu(item)
                 navigate(x.link);
             }
         }

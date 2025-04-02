@@ -1,7 +1,7 @@
 import {Button} from "primereact/button";
 import {UserDetailPageConfig, useUserDetailPage} from "../../../libs/FormCmsAdminSdk";
 import {getDefaultComponentConfig} from "../../getDefaultComponentConfig";
-import {useLanguage} from "../../globalState";
+import {GlobalStateKeys, useGlobalState, useLanguage} from "../../globalState";
 import {cnComponentConfig} from "../../types/cnComponentConfig";
 
 const languageConfig = {
@@ -33,9 +33,13 @@ export function UserDetailPage({baseRouter}: { baseRouter: string }) {
         lan === 'en' ? undefined : cnPageConfig,
     );
 
+    const header = `${langTexts.editing} ${userData?.email}`
+    const [_, setHeader] = useGlobalState<string>( GlobalStateKeys.Header, '');
+    setHeader(header);
+
     return (
         <>
-            <h2>{langTexts.editing} {userData?.email}</h2>
+            <h2>{header}</h2>
             <Button type="submit" label={langTexts.saveUser} icon="pi pi-check" form={formId}/>
             {' '}
             <Button type="button" label={langTexts.deleteUser} severity="danger" onClick={handleDelete}/>

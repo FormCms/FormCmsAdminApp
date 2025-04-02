@@ -1,5 +1,5 @@
 import { Button } from "primereact/button";
-import { useLanguage, useLayout } from "../../globalState";
+import {GlobalStateKeys, useGlobalState, useLanguage, useLayout} from "../../globalState";
 import { DataListPageConfig, useDataListPage, XEntity } from "../../../libs/FormCmsAdminSdk";
 import { getDefaultComponentConfig } from "../../getDefaultComponentConfig";
 import { cnComponentConfig } from "../../types/cnComponentConfig";
@@ -35,6 +35,8 @@ export function DataListPage({ schema, baseRouter }: { schema: XEntity; baseRout
     );
 
     const langTexts = languageConfig[lan === 'en' ? 'en' : 'cn'];
+    const [_, setHeader] = useGlobalState<string>( GlobalStateKeys.Header, '');
+    setHeader(schema.displayName + " " + langTexts.list);
 
     return (
         <>

@@ -1,7 +1,7 @@
 import {Button} from "primereact/button";
 import {useRoleDetailPage, RoleDetailPageConfig} from "../../../libs/FormCmsAdminSdk";
 import {getDefaultComponentConfig} from "../../getDefaultComponentConfig";
-import {useLanguage} from "../../globalState";
+import {GlobalStateKeys, useGlobalState, useLanguage} from "../../globalState";
 import {cnComponentConfig} from "../../types/cnComponentConfig";
 
 const languageConfig = {
@@ -10,6 +10,7 @@ const languageConfig = {
         editingRole: "Editing Role",
         saveRole: "Save Role",
         deleteRole: "Delete Role"
+
     },
     cn: {
         creatingNewRole: "新建角色",
@@ -30,7 +31,6 @@ const cnPageConfig: RoleDetailPageConfig = {
 
 export function RoleDetailPage({baseRouter}: { baseRouter: string }) {
     const lan = useLanguage();
-    const langTexts = languageConfig[lan === 'en' ? 'en' : 'cn'];
     const {
         isNewRole,
         roleData,
@@ -43,12 +43,14 @@ export function RoleDetailPage({baseRouter}: { baseRouter: string }) {
         lan === 'en' ? undefined : cnPageConfig
     );
 
+    const langTexts = languageConfig[lan === 'en' ? 'en' : 'cn'];
+    const [_, setHeader] = useGlobalState<string>( GlobalStateKeys.Header, '');
+    const header =  isNewRole ? langTexts.creatingNewRole : langTexts.editingRole  + roleData?.name;
+    setHeader(header)
+
     return (
         <>
-            {isNewRole ?
-                <h3>{langTexts.creatingNewRole}</h3> :
-                <h3>{langTexts.editingRole} `{roleData?.name}`</h3>
-            }
+            <h3>{header}</h3> :
             <Button type="submit" form={formId} label={langTexts.saveRole} icon="pi pi-check"/>
             {' '}
             <Button type="button" label={langTexts.deleteRole} severity="danger" onClick={handleDelete}/>

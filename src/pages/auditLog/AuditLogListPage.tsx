@@ -1,6 +1,6 @@
 import {AuditLogListPageConfig, useAuditLogListPage, XEntity} from "../../../libs/FormCmsAdminSdk"
 import {getDefaultComponentConfig} from "../../getDefaultComponentConfig";
-import {useLanguage} from "../../globalState";
+import {GlobalStateKeys, useGlobalState, useLanguage} from "../../globalState";
 import {cnComponentConfig} from "../../types/cnComponentConfig";
 const cnPageConfig: AuditLogListPageConfig = {
     auditLogLabels: {
@@ -15,6 +15,17 @@ const cnPageConfig: AuditLogListPageConfig = {
         recordId:'记录编号'
     }
 }
+
+
+const languageConfig = {
+    en: {
+        header:'Audit Log',
+    },
+    cn: {
+        header:'系统日志'
+    }
+};
+
 export function AuditLogListPage(
     {
         baseRouter, schema
@@ -31,6 +42,10 @@ export function AuditLogListPage(
         schema,
         lan == 'en' ? undefined: cnPageConfig
     );
+
+    const langTexts = languageConfig[lan === 'en' ? 'en' : 'cn'];
+    const [_, setHeader] = useGlobalState<string>( GlobalStateKeys.Header, '');
+    setHeader(langTexts.header);
     return <>
         <AuditLogListPageMain/>
     </>

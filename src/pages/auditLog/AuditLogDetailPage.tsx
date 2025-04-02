@@ -1,28 +1,35 @@
 import {Button} from "primereact/button";
 import {useAuditLogDetailPage} from "../../../libs/FormCmsAdminSdk";
-import {useLanguage} from "../../globalState";
+import {GlobalStateKeys, useGlobalState, useLanguage} from "../../globalState";
+import {useNavigate} from "react-router-dom";
 
 const languageConfig = {
     en: {
         back: "Back",
         byUser: "By User:",
-        at: "At"
+        at: "At",
+        header:'Audit Log Detail',
     },
     cn: {
         back: "返回",
         byUser: "用户：",
-        at: "时间："
+        at: "时间：",
+        header:'系统日志'
     }
 };
 
 export function AuditLogDetailPage({baseRouter}:{baseRouter:string}) {
     const lan = useLanguage();
-    const langTexts = languageConfig[lan === 'en' ? 'en' : 'cn'];
     const {auditLogData, refUrl} = useAuditLogDetailPage(baseRouter)
+
+    const langTexts = languageConfig[lan === 'en' ? 'en' : 'cn'];
+    const [_, setHeader] = useGlobalState<string>( GlobalStateKeys.Header, '');
+    setHeader(langTexts.header);
+    const navigate = useNavigate();
 
     return (
         <>
-            <Button type="button" label={langTexts.back} onClick={() => window.location.href = refUrl} />
+            <Button type="button" label={langTexts.back} onClick={() => navigate(refUrl)} />
             {auditLogData && (
                 <div className="surface-section">
                     <div className="font-medium text-3xl text-900 mb-3">

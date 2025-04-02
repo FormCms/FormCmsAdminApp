@@ -1,4 +1,4 @@
-import {useLanguage, useLayout} from "../../globalState";
+import {GlobalStateKeys, useGlobalState, useLanguage, useLayout} from "../../globalState";
 import {UserListPageConfig, useUserListPage} from "../../../libs/FormCmsAdminSdk";
 import {getDefaultComponentConfig} from "../../getDefaultComponentConfig";
 import {cnComponentConfig} from "../../types/cnComponentConfig";
@@ -26,9 +26,12 @@ export function UserListPage() {
         lan === 'en' ? undefined :cnPageConfig
     )
 
-    const lang = languageConfig[lan];
+    const lanText = languageConfig[lan];
+    const [_, setHeader] = useGlobalState<string>( GlobalStateKeys.Header, '');
+    setHeader(lanText.userList);
+
     return <>
-        {layout !=='sidebar' && <h2>{lang.userList}</h2>}
+        {layout !=='sidebar' && <h3>{lanText.userList}</h3>}
         <UserListPageMain/>
     </>
 }
