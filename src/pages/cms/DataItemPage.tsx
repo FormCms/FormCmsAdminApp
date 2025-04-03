@@ -5,7 +5,6 @@ import { cnComponentConfig } from "../../types/cnComponentConfig";
 import { XEntity, useDataItemPage, DataItemPageConfig, ComponentConfig } from "../../../libs/FormCmsAdminSdk";
 import { getDefaultComponentConfig } from "../../getDefaultComponentConfig";
 
-// Centralized language configuration
 const languageConfig = {
     en: {
         save: "Save",
@@ -27,9 +26,8 @@ const languageConfig = {
     }
 };
 
-// Chinese-specific page configuration
 const cnPageConfig: DataItemPageConfig = {
-    cancelButtonText: "",
+    cancelButtonText: "取消",
     deleteConfirm: (s: string) => `您确认删除[${s}]吗？`,
     deleteConfirmHeader: "确认",
     deleteSuccess: "删除成功",
