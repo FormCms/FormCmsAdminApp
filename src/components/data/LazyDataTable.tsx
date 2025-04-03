@@ -46,9 +46,9 @@ export function LazyDataTable(
             first={state?.first}
             filters={state?.filters}
             multiSortMeta={state?.multiSortMeta}
-            onSort={e => onSort(e as any)}
-            onFilter={e => onFilter(e as any)}
-            onPage={e => onPage(e as any)}
+            onSort={e => onSort(e.multiSortMeta as any)}
+            onFilter={e => onFilter(e.filters as any)}
+            onPage={e => onPage({first:e.first,rows:e.rows})}
             selection={selectedItems}
             onSelectionChange={setSelectedItems ? (e) => setSelectedItems(e.value) : undefined}
         >
