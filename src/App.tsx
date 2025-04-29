@@ -19,18 +19,20 @@ import {
     setCmsApiBaseUrl,
     useUserInfo
 } from "../libs/FormCmsAdminSdk";
+import {setActivityBaseUrl} from "../libs/FormCmsAdminSdk/activity/config";
 
 axios.defaults.withCredentials = true
 setCmsApiBaseUrl(configs.apiURL)
 setAuditLogBaseUrl(configs.apiURL)
 setAuthApiBaseUrl(configs.apiURL)
+setActivityBaseUrl(configs.apiURL)
 
 function App() {
     const {data} = useUserInfo();
     const [layout, _] = useGlobalState<string>(GlobalStateKeys.Layout, 'sidebar');
     const AuthRouterComponent = () => (
         <AuthRouter
-            baseRouter={configs.authRouterPrefix}
+            baseRouter={configs.routerPrefix +"/auth"}
             LoginPage={LoginPage}
             RegisterPage={RegisterPage}
         />
@@ -39,7 +41,7 @@ function App() {
     return data
         ? (layout === 'sidebar' ? <SidebarLayout/> : <TopBarLayout/>)
         : <Routes>
-            <Route path={`${configs.authRouterPrefix}/*`} element={<AuthRouterComponent/>}/>
+            <Route path={`${configs.routerPrefix}/auth/*`} element={<AuthRouterComponent/>}/>
             <Route path="*" element={<AuthRouterComponent/>}/>
         </Routes>
 }

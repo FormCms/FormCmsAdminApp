@@ -1,6 +1,6 @@
 import {Menu} from "primereact/menu";
-import {MenuItem} from "primereact/menuitem";
-import {configs} from "../../config";
+import {MenuItem, MenuItemCommandEvent} from "primereact/menuitem";
+import {auditRouterPrefix, authRouterPrefix, configs, entityRouterPrefix} from "../../config";
 import {Logo} from "../Logo";
 import {useLanguage} from "../../globalState";
 import {cnSystemMenuLabels} from "../../types/menu";
@@ -15,10 +15,13 @@ export function Sidebar() {
     const navigate = useNavigate();
     const lan = useLanguage();
 
-    const entityMenuItems: any[] = useEntityMenuItems(configs.entityRouterPrefix);
-    const assetMenuItems: any[] = useAssetMenuItems(configs.entityRouterPrefix);
+    const entityMenuItems: any[] = useEntityMenuItems(entityRouterPrefix);
+    const assetMenuItems: any[] = useAssetMenuItems(entityRouterPrefix);
     const systemMenuItems: any[] = useSystemMenuItems(
-        configs.entityRouterPrefix, configs.authRouterPrefix, configs.auditLogRouterPrefix, configs.schemaBuilderRouter
+        entityRouterPrefix,
+        authRouterPrefix,
+        auditRouterPrefix,
+        configs.schemaBuilderRouter
     );
 
     if (lan !== 'en') {
@@ -48,9 +51,14 @@ export function Sidebar() {
                 )
             }
         },
+        { separator: true },
         {
-            separator: true
+            label: lan === 'en' ? 'Dashboard' : "控制面板",
+            command() {
+                navigate(configs.routerPrefix + "/")
+            }
         },
+        { separator: true },
         {
             label: lan === 'en' ? 'Entities' : "数据",
             items: entityMenuItems,

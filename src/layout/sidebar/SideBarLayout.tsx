@@ -1,5 +1,5 @@
 import {Sidebar} from "./Sidebar";
-import {AppRouters} from "../../AppRouters";
+import {AppRouters} from "../AppRouters";
 import React from "react";
 import {MenuBar} from "./MenuBar";
 

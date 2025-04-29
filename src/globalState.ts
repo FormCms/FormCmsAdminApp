@@ -46,7 +46,7 @@ function useLayout() :'sidebar'|'topBar'{
 
 function useLanguage() :'cn'|'en'{
     const [lan] = useGlobalState<'en'|'cn'>( GlobalStateKeys.Language, 'en');
-    return lan;
+    return lan==='cn'?'cn':'en';
 }
 
 export { useGlobalState, GlobalStateKeys ,useLanguage, useLayout};

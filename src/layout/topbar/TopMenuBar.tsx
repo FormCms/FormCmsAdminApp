@@ -1,20 +1,21 @@
 import {Menubar} from "primereact/menubar";
 import React from "react";
-import {configs} from "../../config";
+import {auditRouterPrefix, authRouterPrefix, configs, entityRouterPrefix} from "../../config";
 import {Logo} from "../Logo";
 import {MenuEnd} from "../MenuEnd";
 import {useLanguage} from "../../globalState";
 import {cnSystemMenuLabels} from "../../types/menu";
 import {useAssetMenuItems, useEntityMenuItems, useSystemMenuItems} from "../../../libs/FormCmsAdminSdk";
 import {useNavigate} from "react-router-dom";
+import {MenuItemCommandEvent} from "primereact/menuitem";
 
 export function TopMenuBar() {
     const navigate = useNavigate();
     const lan = useLanguage()
-    const entityMenuItems :any[]= useEntityMenuItems(configs.entityRouterPrefix);
-    const assetMenuItems :any[]= useAssetMenuItems(configs.entityRouterPrefix);
+    const entityMenuItems :any[]= useEntityMenuItems(entityRouterPrefix);
+    const assetMenuItems :any[]= useAssetMenuItems(entityRouterPrefix);
     const systemMenuItems  :any[]= useSystemMenuItems(
-        configs.entityRouterPrefix,configs.authRouterPrefix,configs.auditLogRouterPrefix,configs.schemaBuilderRouter,
+        entityRouterPrefix,authRouterPrefix,auditRouterPrefix,configs.schemaBuilderRouter,
     );
     if (lan != 'en'){
         systemMenuItems.forEach(x=>{
@@ -31,7 +32,13 @@ export function TopMenuBar() {
         }
     })
 
-    return (
-        <Menubar model={[...entityMenuItems, ...assetMenuItems, ...systemMenuItems]} start={<Logo/>} end={<MenuEnd/>}/>
+    const dashBoard = {
+            label: lan === 'en' ? 'Dashboard' : "控制面板",
+            command() {
+                navigate(configs.routerPrefix + "/")
+            }
+        }
+
+    return ( <Menubar model={[dashBoard,...entityMenuItems, ...assetMenuItems, ...systemMenuItems]} start={<Logo/>} end={<MenuEnd/>}/>
     )
 }

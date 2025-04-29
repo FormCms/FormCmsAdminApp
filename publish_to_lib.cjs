@@ -5,9 +5,7 @@ const fs = require("fs");
 // Set environment variables
 const envVars = {
     VITE_REACT_APP_API_URL: "/api",
-    VITE_REACT_APP_ENTITY_ROUTER_PREFIX: "/_content/FormCMS/admin/entities",
-    VITE_REACT_APP_AUTH_ROUTER_PREFIX: "/_content/FormCMS/admin/auth",
-    VITE_REACT_APP_AUDIT_LOG_ROUTER_PREFIX: "/_content/FormCMS/admin/audit",
+    VITE_REACT_APP_ROUTER_PREFIX: "/_content/FormCMS/admin",
 };
 
 // Set environment variables dynamically for cross-platform compatibility

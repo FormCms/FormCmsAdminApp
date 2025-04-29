@@ -1,4 +1,4 @@
-import {AppRouters} from "../../AppRouters";
+import {AppRouters} from "../AppRouters";
 import React from "react";
 import {TopMenuBar} from "./TopMenuBar";
 
