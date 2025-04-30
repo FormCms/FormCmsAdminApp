@@ -18,14 +18,12 @@ export function DashboardPage() {
     setHeader(lanText.header);
     const {pastDays, activities, dataActions, visits, pageData, pageNames} = useDashboardPage(6)
 
-    console.log({activities, dataActions, visits});
-
-    return pastDays && activities && dataActions && visits && pageData && pageNames && <div className="grid">
+    return <div className="grid">
         <div className="col-6 p-4">
             <StackedBar header={'Daily Visits'} xLabels={pastDays} yData={visits}/>
         </div>
         <div className="col-6 p-4">
-            <StackedBar header={'Page Visits'} xLabels={pageNames} yData={[pageData]}/>
+            <StackedBar header={'Page Visits'} xLabels={pageNames} yData={pageData &&[pageData]}/>
         </div>
         <div className="col-6 p-4">
             <StackedBar header={'Social Activities'} xLabels={pastDays} yData={activities}/>

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Chart } from 'primereact/chart';
+import React, {useState, useEffect} from 'react';
+import {Chart} from 'primereact/chart';
 
 export interface StackedBarProps {
-    header:string;
-    xLabels: string[];
+    header: string;
+    xLabels: string[] | undefined;
     yData: {
-        label:string
-        data:number[];
-    }[]
+        label: string
+        data: number[];
+    }[] | undefined
 }
 
 export function StackedBar(
@@ -15,7 +15,7 @@ export function StackedBar(
         header,
         xLabels,
         yData
-    }:StackedBarProps
+    }: StackedBarProps
 ) {
     const [chartData, setChartData] = useState({});
     const [chartOptions, setChartOptions] = useState({});
@@ -31,9 +31,9 @@ export function StackedBar(
             documentStyle.getPropertyValue('--yellow-500'),
             documentStyle.getPropertyValue('--grey-500'),
         ];
-        const datasets = yData.map((item, idx)=>({
+        const datasets = yData && yData.map((item, idx) => ({
             type: 'bar',
-            label:item.label,
+            label: item.label,
             backgroundColor: colors[idx % colors.length],
             borderColor: colors[idx % colors.length],
             data: item.data,
@@ -75,14 +75,14 @@ export function StackedBar(
             }
         };
 
-        setChartData({xLabels: xLabels,datasets});
+        setChartData({xLabels: xLabels, datasets});
         setChartOptions(options);
-    }, []);
+    }, [yData, xLabels]);
 
     return (
         <div className="card">
             <h4>{header}</h4>
-            <Chart type="bar" data={chartData} options={chartOptions} />
+            <Chart type="bar" data={chartData} options={chartOptions} id={header}/>
         </div>
     )
 }

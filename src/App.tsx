@@ -14,12 +14,12 @@ import {GlobalStateKeys, useGlobalState} from "./globalState";
 import {TopBarLayout} from "./layout/topbar/TopBarLayout";
 import {
     AuthRouter,
+    setActivityBaseUrl,
     setAuditLogBaseUrl,
     setAuthApiBaseUrl,
     setCmsApiBaseUrl,
     useUserInfo
 } from "../libs/FormCmsAdminSdk";
-import {setActivityBaseUrl} from "../libs/FormCmsAdminSdk/activity/config";
 
 axios.defaults.withCredentials = true
 setCmsApiBaseUrl(configs.apiURL)
