@@ -11,14 +11,14 @@ import {useLanguage} from "../../globalState";
 const languageConfig = {
     en: {
         login: "Login",
-        email: "Email",
+        usernameOrEmail: "Username or Email",
         password: "Password",
         registerPrompt: "Don't have an account? Register",
         demoCredentials: "Use demo user and password"
     },
     cn: {
         login: "登录",
-        email: "电子邮件",
+        usernameOrEmail: "用户名或电子邮件",
         password: "密码",
         registerPrompt: "没有账户？注册",
         demoCredentials: "使用演示用户密码"
@@ -36,7 +36,7 @@ const containerStyle: React.CSSProperties = {
 export function LoginPage({baseRouter}: { baseRouter: string }) {
     const lan = useLanguage();
     const langTexts = languageConfig[lan === 'en' ? 'en' : 'cn'];
-    const {error, email, setEmail, password, setPassword, handleLogin, registerLink} = useLoginPage(baseRouter);
+    const {error, usernameOrEmail, setUsernameOrEmail, password, setPassword, handleLogin, registerLink} = useLoginPage(baseRouter);
 
     return (
         <div style={containerStyle}>
@@ -48,11 +48,11 @@ export function LoginPage({baseRouter}: { baseRouter: string }) {
                         </div>
                     )}
                     <div className="p-field">
-                        <label htmlFor="mail">{langTexts.email}</label>
+                        <label htmlFor="mail">{langTexts.usernameOrEmail}</label>
                         <InputText
                             id="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={usernameOrEmail}
+                            onChange={(e) => setUsernameOrEmail(e.target.value)}
                         />
                     </div>
                     <div className="p-field"></div>
@@ -83,7 +83,7 @@ export function LoginPage({baseRouter}: { baseRouter: string }) {
                     <div className="p-mt-3">
                         <Button size={'small'} outlined label={langTexts.demoCredentials} onClick={
                             () => {
-                                setEmail('admin@cms.com');
+                                setUsernameOrEmail('admin@cms.com');
                                 setPassword('Admin1!');
                             }
                         }></Button>

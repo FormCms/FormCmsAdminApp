@@ -11,6 +11,7 @@ import {useLanguage} from "../../globalState";
 const languageConfig = {
     en: {
         register: "Register",
+        userName: "User Name",
         email: "Email",
         password: "Password",
         confirmPassword: "Confirm Password",
@@ -20,6 +21,7 @@ const languageConfig = {
     },
     cn: {
         register: "注册",
+        userName: "用户姓名",
         email: "电子邮件",
         password: "密码",
         confirmPassword: "确认密码",
@@ -50,6 +52,7 @@ export function RegisterPage({baseRouter}: { baseRouter:string; }) {
     const lan = useLanguage();
     const langTexts = languageConfig[lan === 'en' ? 'en' : 'cn'];
     const {errors, success, loginLink,
+        userName,setUserName,
         email, setEmail,
         password, setPassword,
         confirmPassword, setConfirmPassword,
@@ -73,6 +76,14 @@ export function RegisterPage({baseRouter}: { baseRouter:string; }) {
                         </div>
                     ) : (
                         <>
+                            <div className="p-field">
+                                <label htmlFor="username">{langTexts.userName}</label>
+                                <InputText
+                                    id="username"
+                                    value={userName}
+                                    onChange={(e) => setUserName(e.target.value)}
+                                />
+                            </div>
                             <div className="p-field">
                                 <label htmlFor="username">{langTexts.email}</label>
                                 <InputText
