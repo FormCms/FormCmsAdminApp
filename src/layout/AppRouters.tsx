@@ -8,14 +8,15 @@ import {AssetListPage} from "../pages/cms/AssetListPage";
 import {AssetEditPage} from "../pages/cms/AssetEditPage";
 import {UserListPage} from "../pages/auth/UserListPage";
 import {UserDetailPage} from "../pages/auth/UserDetailPage";
-import {ChangePasswordPage} from "../pages/auth/ChangePasswordPage";
+import {ChangePasswordPage} from "../pages/profile/ChangePasswordPage";
 import {RoleListPage} from "../pages/auth/RoleListPage";
 import {RoleDetailPage} from "../pages/auth/RoleDetailPage";
 import {AuditLogDetailPage} from "../pages/auditLog/AuditLogDetailPage";
 import {AuditLogListPage} from "../pages/auditLog/AuditLogListPage";
 import React from "react";
-import {AccountRouter, AuditLogRouter, EntityRouter} from "../../libs/FormCmsAdminSdk";
+import {AccountRouter, AuditLogRouter, EntityRouter, ProfileRouter} from "../../libs/FormCmsAdminSdk";
 import {DashboardPage} from "../pages/dashboard/DashboardPage";
+import {SetAvatarPage} from "../pages/profile/SetAvatarPage";
 
 export function AppRouters() {
     return <Routes>
@@ -36,10 +37,12 @@ export function AppRouters() {
                 baseRouter={configs.routerPrefix + "/auth"}
                 UserListPage={UserListPage}
                 UserDetailPage={UserDetailPage}
-                ChangePasswordPage={ChangePasswordPage}
                 RoleListPage={RoleListPage}
                 RoleDetailPage={RoleDetailPage}
             />
+        }/>
+        <Route path={`${configs.routerPrefix}/profile/*`} element={
+            <ProfileRouter baseRouter={`${configs.routerPrefix}/profile/*`} ChangePasswordPage={ChangePasswordPage} SetAvatarPage={SetAvatarPage}/>
         }/>
         <Route path={`${configs.routerPrefix}/audit/*`} element={
             <AuditLogRouter

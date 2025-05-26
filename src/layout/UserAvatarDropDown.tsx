@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import {Avatar} from 'primereact/avatar';
 import {Menu} from 'primereact/menu';
-import {authRouterPrefix} from "../config";
+import {profileRouterPrefix} from "../config";
 import {useLanguage} from "../globalState";
 import {useUserInfo, useUserProfileMenu} from "../../libs/FormCmsAdminSdk";
 import {useNavigate} from "react-router-dom";
@@ -10,7 +10,7 @@ const UserAvatarDropdown = () => {
     const lan = useLanguage()
     const menu = useRef<any>(null);
     const {data: userAccessInfo} = useUserInfo();
-    const menus = useUserProfileMenu(authRouterPrefix);
+    const menus = useUserProfileMenu(profileRouterPrefix);
     if (lan === 'cn') {
         menus.forEach((item) => {
             if (item.key === 'logout') {
@@ -35,7 +35,7 @@ const UserAvatarDropdown = () => {
 
     return (
         <div className="flex align-items-center gap-2">
-            <Avatar onClick={handleToggle} icon="pi pi-user" size="normal"
+            <Avatar onClick={handleToggle} icon="pi pi-user" size="normal" image={userAccessInfo?.avatarUrl}
                     style={{backgroundColor: '#2196F3', color: '#ffffff'}} shape="circle"/>
             <Menu model={menuItems} popup ref={menu}/>
             <span onClick={handleToggle} style={{cursor: 'pointer'}}>{userAccessInfo?.email.split('@')[0]}</span>

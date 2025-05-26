@@ -7,5 +7,6 @@ export const configs = {
 export const entityRouterPrefix =  configs.routerPrefix + "/entities";
 export const authRouterPrefix = configs.routerPrefix +'/auth';
 export const auditRouterPrefix = configs.routerPrefix +"/audit";
+export const profileRouterPrefix = configs.routerPrefix +"/profile";
 
 console.log({configs})
